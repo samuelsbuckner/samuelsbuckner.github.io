@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Deposit Calculation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .input-box, .result-box {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .result-box {
+      font-weight: bold;
+    }
+    .input-box input {
+      width: 100%;
+      padding: 5px;
+      margin: 5px 0;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Game Deposit Calculation</h1>
+
+  <div class="container">
+    <div class="input-box">
+      <label for="sent">Amount Sent ($):</label>
+      <input type="number" id="sent" placeholder="Enter amount sent">
+    </div>
+    <div class="input-box">
+      <label for="deposited">Deposited on Game ($):</label>
+      <input type="number" id="deposited" placeholder="Enter deposited amount">
+    </div>
+    <div class="result-box">
+      <label for="min">Minimum:</label>
+      <p id="min">-</p>
+    </div>
+    <div class="result-box">
+      <label for="max">Maximum:</label>
+      <p id="max">-</p>
+    </div>
+  </div>
+
+  <button onclick="calculateResults()">Calculate</button>
+
+  <script>
+    function calculateResults() {
+      // Get user inputs
+      const sent = parseFloat(document.getElementById("sent").value);
+      const deposited = parseFloat(document.getElementById("deposited").value);
+      
+      if (isNaN(sent) || isNaN(deposited)) {
+        alert("Please enter valid numbers for both $Sent and Deposited on Game.");
+        return;
+      }
+
+      // Calculate Minimum
+      let min;
+      if (deposited * 4 < 65) {
+        min = 65;
+      } else {
+        min = deposited * 4;
+      }
+
+      // Calculate Maximum
+      let max;
+      if (sent >= 0 && sent <= 20) {
+        max = sent * 10;
+      } else if (sent >= 21 && sent <= 50) {
+        max = 750;
+      } else if (sent >= 51 && sent <= 100) {
+        max = 1500;
+      } else if (sent > 100) {
+        max = 4100;
+      }
+
+      // Display results
+      document.getElementById("min").textContent = min;
+      document.getElementById("max").textContent = max;
+    }
+  </script>
+
+</body>
+</html>
+
